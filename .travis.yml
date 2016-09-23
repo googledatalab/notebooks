@@ -1,0 +1,24 @@
+sudo: required
+language: python
+services:
+- docker
+install:
+- if [ -n "${SERVICE_ACCOUNT_KEY}" ]; then
+    echo "${SERVICE_ACCOUNT_KEY}" > ./datalab-travis-build-bot.json;
+  else
+    openssl aes-256-cbc -K "$encrypted_a0ecf488aafb_key" -iv "$encrypted_a0ecf488aafb_iv"
+      -in .build-bot.json -out ./datalab-travis-build-bot.json -d;
+  fi
+- gcloud auth activate-service-account --key-file ./datalab-travis-build-bot.json
+- export DOCKER_IMAGE="${DOCKER_IMAGE:-gcr.io/cloud-datalab/datalab-gateway}"
+- docker pull "${DOCKER_IMAGE}"
+script:
+- docker run
+  -v "$(pwd):/content/notebooks"
+  -v "${HOME}:/content/datalab"
+  -e "PROJECT_ID=${PROJECT_ID}"
+  -e "NO_GCE_CHECK=True"
+  -e "GOOGLE_APPLICATION_CREDENTIALS=/content/notebooks/datalab-travis-build-bot.json"
+  --entrypoint /content/notebooks/test.sh
+  --workdir /content/notebooks
+  "${DOCKER_IMAGE}"
