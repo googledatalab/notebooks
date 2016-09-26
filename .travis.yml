@@ -19,6 +19,6 @@ script:
   -e "PROJECT_ID=${PROJECT_ID}"
   -e "NO_GCE_CHECK=True"
   -e "GOOGLE_APPLICATION_CREDENTIALS=/content/notebooks/datalab-travis-build-bot.json"
-  --entrypoint /content/notebooks/test.sh
+  --entrypoint /content/notebooks/.test.sh
   --workdir /content/notebooks
   "${DOCKER_IMAGE}"
