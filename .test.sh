@@ -31,7 +31,7 @@
 #    docker run -v "$(pwd):/content/notebooks" \
 #      -v "${HOME}:/content/datalab" \
 #      -e "PROJECT_ID=${PROJECT_ID}" \
-#      --entrypoint /content/notebooks/test.sh \
+#      --entrypoint /content/notebooks/.test.sh \
 #      --workdir /content/notebooks \
 #      gcr.io/cloud-datalab/datalab-gateway
 
