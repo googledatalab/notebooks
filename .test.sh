@@ -43,17 +43,18 @@ function testNotebooks() {
     SEP=$'\n\t'
     COUNT="0"
     for NOTEBOOK in `find ${DIR} -name '*.ipynb' -and -not -name 'Introduction to Python.ipynb'`; do
-	echo "Testing ${NOTEBOOK}"
-	jupyter nbconvert --ExecutePreprocessor.enabled=True --ExecutePreprocessor.timeout=300 "${NOTEBOOK}" || FAILED_NOTEBOOKS="${FAILED_NOTEBOOKS}${SEP}${NOTEBOOK}"
-	COUNT=$(expr ${COUNT} + 1)
+      echo "Testing ${NOTEBOOK}"
+      jupyter nbconvert --ExecutePreprocessor.enabled=True --ExecutePreprocessor.timeout=300 "${NOTEBOOK}" || FAILED_NOTEBOOKS="${FAILED_NOTEBOOKS}${SEP}${NOTEBOOK}"
+      COUNT=$(expr ${COUNT} + 1)
     done
     if [ -n "${FAILED_NOTEBOOKS}" ]; then
-	echo "Validation failed for the following notebooks:${FAILED_NOTEBOOKS}"
-	exit 1
+      echo "Validation failed for the following notebooks:${FAILED_NOTEBOOKS}"
+      exit 1
     else
-	echo "Validation passed for ${COUNT} notebooks"
+      echo "Validation passed for ${COUNT} notebooks"
     fi
 }
 
 DIR="${1:-./}"
 testNotebooks ${DIR}
+
