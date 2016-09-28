@@ -31,6 +31,7 @@
 #    docker run -v "$(pwd):/content/notebooks" \
 #      -v "${HOME}:/content/datalab" \
 #      -e "PROJECT_ID=${PROJECT_ID}" \
+#      -e "GOOGLE_APPLICATION_CREDENTIALS=/content/datalab/.config/gcloud/application_default_credentials.json" \
 #      --entrypoint /content/notebooks/.test.sh \
 #      --workdir /content/notebooks \
 #      gcr.io/cloud-datalab/datalab-gateway
