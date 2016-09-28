@@ -56,3 +56,4 @@ function testNotebooks() {
 
 DIR="${1:-./}"
 testNotebooks ${DIR}
+
