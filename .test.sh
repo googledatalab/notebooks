@@ -36,22 +36,36 @@
 #      --workdir /content/notebooks \
 #      gcr.io/cloud-datalab/datalab-gateway
 
+EXCLUDE=(
+"Introduction to Python.ipynb"
+"2. Preprocess.ipynb"
+"3. Training.ipynb"
+"6. Evaluation and Batch Prediction.ipynb"
+"7. HyperParameter Tuning.ipynb"
+)
+
 function testNotebooks() {
     DIR="${1:-./}"
     IFS=$'\n'
     FAILED_NOTEBOOKS=""
     SEP=$'\n\t'
     COUNT="0"
-    for NOTEBOOK in `find ${DIR} -name '*.ipynb' -and -not -name 'Introduction to Python.ipynb'`; do
-	echo "Testing ${NOTEBOOK}"
-	jupyter nbconvert --ExecutePreprocessor.enabled=True --ExecutePreprocessor.timeout=300 "${NOTEBOOK}" || FAILED_NOTEBOOKS="${FAILED_NOTEBOOKS}${SEP}${NOTEBOOK}"
-	COUNT=$(expr ${COUNT} + 1)
+    EXCLUDE_ARGS=""
+    for EXCLUDED_NOTEBOOK in "${EXCLUDE[@]}"; do
+        EXCLUDE_ARGS="${EXCLUDE_ARGS} -and -not -name '${EXCLUDED_NOTEBOOK}'"
+    done
+    SEARCH_CMD="find ${DIR} -name '*.ipynb'${EXCLUDE_ARGS}"
+    echo "Search command: ${SEARCH_CMD}"
+    for NOTEBOOK in `eval "${SEARCH_CMD}"`; do
+        echo "Testing ${NOTEBOOK}"
+        jupyter nbconvert --ExecutePreprocessor.enabled=True --ExecutePreprocessor.timeout=300 "${NOTEBOOK}" || FAILED_NOTEBOOKS="${FAILED_NOTEBOOKS}${SEP}${NOTEBOOK}"
+        COUNT=$(expr ${COUNT} + 1)
     done
     if [ -n "${FAILED_NOTEBOOKS}" ]; then
-	echo "Validation failed for the following notebooks:${FAILED_NOTEBOOKS}"
-	exit 1
+        echo "Validation failed for the following notebooks:${FAILED_NOTEBOOKS}"
+        exit 1
     else
-	echo "Validation passed for ${COUNT} notebooks"
+        echo "Validation passed for ${COUNT} notebooks"
     fi
 }
 
