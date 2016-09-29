@@ -23,6 +23,9 @@
 #  3. Enabled billing in that project.
 #  4. Created at least one Google Compute Engine VM in that project (this is
 #     required by the monitoring 'Getting Started' notebook).
+#  5. Created a Stackdriver account, and a Stackdriver group containing one or
+#     more Google Compute Engine VMs (this is required by the monitoring 'Group
+#     metrics' notebook).
 #
 # If you do not have the assorted Datalab dependencies installed, then you can
 # run this inside of the Datalab kernel gateway environment using the following
