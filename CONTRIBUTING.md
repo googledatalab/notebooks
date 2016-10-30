@@ -41,15 +41,16 @@ need to configure Travis to run on your fork. The steps for doing that are:
 5. Go to [Travis CI](https://travis-ci.org) and sign in with your GitHub account.
 6. Click on the '+' icon next to the "My Repositories" list and enable Travis
    builds for your fork.
-7. Click on the gear icon for to edit your travis build, and add two environment
+7. Click on the gear icon to edit your travis build, and add two environment
    variables:
 
     1. "PROJECT_ID", with the value being the ID of the project you created.
     2. "SERVICE_ACCOUNT_KEY", with the value being the contents of the JSON
-       key that you downloaded for your service account.
+       key that you downloaded for your service account. Use single quotes
+       around your JSON key to ensure that it is treated as a string.
 
    For both environment variables, keep the "Display value in build log" option
-   *DISABLED*. These variable contain sensitive data and you do not want their
+   *DISABLED*. These variables contain sensitive data and you do not want their
    contents being exposed in build logs.
 
 ### The small print
