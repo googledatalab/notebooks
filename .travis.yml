@@ -16,7 +16,7 @@ script:
 - docker run
   -v "$(pwd):/content/notebooks"
   -v "${HOME}:/content/datalab"
-  -e "PROJECT_ID=${PROJECT_ID}"
+  -e "CLOUDSDK_CORE_PROJECT=${PROJECT_ID}"
   -e "NO_GCE_CHECK=True"
   -e "GOOGLE_APPLICATION_CREDENTIALS=/content/notebooks/datalab-travis-build-bot.json"
   --entrypoint /content/notebooks/.test.sh
