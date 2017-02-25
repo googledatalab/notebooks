@@ -1,0 +1,97 @@
+[
+  {
+    "type": "STRING", 
+    "name": "SERIALNO", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "FLOAT", 
+    "name": "WAGP", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "AGEP", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "COW", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "ESP", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "ESR", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "FOD1P", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "HINS4", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "INDP", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "JWMNP", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "JWTR", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "MAR", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "POWPUMA", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "PUMA", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "RAC1P", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "SCHL", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "SCIENGRLP", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "SEX", 
+    "mode": "NULLABLE"
+  }, 
+  {
+    "type": "STRING", 
+    "name": "WKW", 
+    "mode": "NULLABLE"
+  }
+]
