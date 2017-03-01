@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Copyright 2016 Google Inc. All rights reserved.
 #
@@ -21,23 +21,24 @@
 #  2. Created a Google Cloud Platform project and set its ID in the 'PROJECT_ID'
 #     environment variable.
 #  3. Enabled billing in that project.
+#  4. Enabled the Compute Engine API and Machine Learning Engine API in that project.
 #  4. Created at least one Google Compute Engine VM in that project (this is
 #     required by the monitoring 'Getting Started' notebook).
 #  5. Created a Stackdriver account, and a Stackdriver group containing one or
 #     more Google Compute Engine VMs (this is required by the monitoring 'Group
 #     metrics' notebook).
 #
-# If you do not have the assorted Datalab dependencies installed, then you can
-# run this inside of the Datalab kernel gateway environment using the following
-# command (assuming you have set the 'PROJECT_ID' variable to your test project):
+# To ensure you have the necessary Datalab dependencies installed, you should
+# run this inside of the latest Datalab image using the following command
+# (assuming you have set the 'PROJECT_ID' variable to your test project):
 #
-#    docker run -v "$(pwd):/content/notebooks" \
+#    docker run -it -v "$(pwd):/content/notebooks" \
 #      -v "${HOME}:/content/datalab" \
-#      -e "PROJECT_ID=${PROJECT_ID}" \
+#      -e "CLOUDSDK_CORE_PROJECT=${PROJECT_ID}" \
 #      -e "GOOGLE_APPLICATION_CREDENTIALS=/content/datalab/.config/gcloud/application_default_credentials.json" \
 #      --entrypoint /content/notebooks/.test.sh \
 #      --workdir /content/notebooks \
-#      gcr.io/cloud-datalab/datalab-gateway
+#      gcr.io/cloud-datalab/datalab
 
 EXCLUDE=(
 "Introduction to Python.ipynb"
@@ -72,12 +73,11 @@ function testNotebooks() {
     fi
 }
 
+# Configure gcloud to use the specified service account credentials
+gcloud auth activate-service-account --key-file="${GOOGLE_APPLICATION_CREDENTIALS}"
+
+# Tell bash to exit the script completely rather than just killing the current command.
+trap "exit" INT
+
 DIR="${1:-./}"
-
-first_account=`gcloud auth list --format="value(account)" --limit=1`
-active_account=`gcloud auth list --filter="status=ACTIVE" --format="value(account)"`
-if [ -z "${active_account}" ]; then
-    gcloud config set account "${first_account}"
-fi
-
 testNotebooks ${DIR}
