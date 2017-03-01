@@ -74,4 +74,11 @@ function testNotebooks() {
 }
 
 DIR="${1:-./}"
+
+first_account=`gcloud auth list --format="value(account)" --limit=1`
+active_account=`gcloud auth list --filter="status=ACTIVE" --format="value(account)"`
+if [ -z "${active_account}" ]; then
+    gcloud config set account "${first_account}"
+fi
+
 testNotebooks ${DIR}
