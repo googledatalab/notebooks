@@ -9,8 +9,7 @@ install:
     openssl aes-256-cbc -K "$encrypted_a0ecf488aafb_key" -iv "$encrypted_a0ecf488aafb_iv"
       -in .build-bot.json -out ./datalab-travis-build-bot.json -d;
   fi
-- gcloud auth activate-service-account --key-file ./datalab-travis-build-bot.json
-- export DOCKER_IMAGE="${DOCKER_IMAGE:-gcr.io/cloud-datalab/datalab-gateway}"
+- export DOCKER_IMAGE="${DOCKER_IMAGE:-gcr.io/cloud-datalab/datalab}"
 - docker pull "${DOCKER_IMAGE}"
 script:
 - docker run
