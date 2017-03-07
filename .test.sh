@@ -47,6 +47,7 @@ EXCLUDE=(
 "6. Evaluation and Batch Prediction.ipynb"
 "7. HyperParameter Tuning.ipynb"
 "UDFs using Code in Cloud Storage.ipynb"
+"Using External Tables from BigQuery.ipynb"
 )
 
 function testNotebooks() {
