@@ -42,10 +42,6 @@
 
 EXCLUDE=(
 "Introduction to Python.ipynb"
-"2. Preprocess.ipynb"
-"3. Training.ipynb"
-"6. Evaluation and Batch Prediction.ipynb"
-"7. HyperParameter Tuning.ipynb"
 "UDFs using Code in Cloud Storage.ipynb"
 "Using External Tables from BigQuery.ipynb"
 )
@@ -60,7 +56,7 @@ function testNotebooks() {
     for EXCLUDED_NOTEBOOK in "${EXCLUDE[@]}"; do
         EXCLUDE_ARGS="${EXCLUDE_ARGS} -and -not -name '${EXCLUDED_NOTEBOOK}'"
     done
-    EXCLUDE_ARGS="${EXCLUDE_ARGS} -and -not -path '${DIR}tutorials/Machine Learning/*'"
+    EXCLUDE_ARGS="${EXCLUDE_ARGS} -and -not -path '${DIR}samples/ML Toolbox/*'"
     SEARCH_CMD="find ${DIR} -name '*.ipynb'${EXCLUDE_ARGS}"
     echo "Search command: ${SEARCH_CMD}"
     for NOTEBOOK in `eval "${SEARCH_CMD}"`; do
