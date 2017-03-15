@@ -46,9 +46,9 @@ EXCLUDE_NOTEBOOKS=(
 "Using External Tables from BigQuery.ipynb"
 )
 
-# samples/ML Toolbox/Regression/* is tested.
+# samples/ML Toolbox/Classification/* is tested.
 EXCLUDE_FOLDERS=(
-"samples/ML Toolbox/Classification/*"
+"samples/ML Toolbox/Regression/*"
 "samples/ML Toolbox/Image Classification/*"
 )
 
