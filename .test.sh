@@ -40,10 +40,16 @@
 #      --workdir /content/notebooks \
 #      gcr.io/cloud-datalab/datalab
 
-EXCLUDE=(
+EXCLUDE_NOTEBOOKS=(
 "Introduction to Python.ipynb"
 "UDFs using Code in Cloud Storage.ipynb"
 "Using External Tables from BigQuery.ipynb"
+)
+
+# samples/ML Toolbox/Classification/* is tested.
+EXCLUDE_FOLDERS=(
+"samples/ML Toolbox/Regression/*"
+"samples/ML Toolbox/Image Classification/*"
 )
 
 function testNotebooks() {
@@ -53,10 +59,12 @@ function testNotebooks() {
     SEP=$'\n\t'
     COUNT="0"
     EXCLUDE_ARGS=""
-    for EXCLUDED_NOTEBOOK in "${EXCLUDE[@]}"; do
+    for EXCLUDED_NOTEBOOK in "${EXCLUDE_NOTEBOOKS[@]}"; do
         EXCLUDE_ARGS="${EXCLUDE_ARGS} -and -not -name '${EXCLUDED_NOTEBOOK}'"
     done
-    EXCLUDE_ARGS="${EXCLUDE_ARGS} -and -not -path '${DIR}samples/ML Toolbox/*'"
+    for EXCLUDED_FOLDER in "${EXCLUDE_FOLDERS[@]}"; do
+        EXCLUDE_ARGS="${EXCLUDE_ARGS} -and -not -path '${DIR}${EXCLUDED_FOLDER}'"
+    done
     SEARCH_CMD="find ${DIR} -name '*.ipynb'${EXCLUDE_ARGS}"
     echo "Search command: ${SEARCH_CMD}"
     for NOTEBOOK in `eval "${SEARCH_CMD}"`; do
