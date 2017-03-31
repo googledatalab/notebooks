@@ -41,9 +41,10 @@
 #      gcr.io/cloud-datalab/datalab
 
 EXCLUDE_NOTEBOOKS=(
+"Group metrics.ipynb"
+"Getting started.ipynb"
 "Introduction to Python.ipynb"
 "UDFs using Code in Cloud Storage.ipynb"
-"Using External Tables from BigQuery.ipynb"
 )
 
 # samples/ML Toolbox/Classification/* is tested.
