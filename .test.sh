@@ -81,8 +81,11 @@ function testNotebooks() {
     fi
 }
 
-# Configure gcloud to use the specified service account credentials
-gcloud auth activate-service-account --key-file="${GOOGLE_APPLICATION_CREDENTIALS}"
+# If a service account credentials file is specified, configure
+# gcloud to use the specified service account credentials
+if [ -n "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then
+  gcloud auth activate-service-account --key-file="${GOOGLE_APPLICATION_CREDENTIALS}"
+fi
 
 # Tell bash to exit the script completely rather than just killing the current command.
 trap "exit" INT
