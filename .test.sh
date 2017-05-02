@@ -45,7 +45,7 @@ EXCLUDE_NOTEBOOKS=(
 "Getting started.ipynb"
 "Introduction to Python.ipynb"
 "UDFs using Code in Cloud Storage.ipynb"
-"LSTM Punctuation Model With TensorFlow"  # This notebook takes 30 minutes to execute.
+"LSTM Punctuation Model With TensorFlow.ipynb"  # This notebook takes 30 minutes to execute.
 )
 
 # samples/ML Toolbox/Classification/* is tested.
