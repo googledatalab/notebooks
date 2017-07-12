@@ -54,7 +54,7 @@ EXCLUDE_NOTEBOOKS=(
 EXCLUDE_FOLDERS=(
 "samples/ML Toolbox/Regression/*"
 "samples/ML Toolbox/Image Classification/*"
-"samples/contrib"
+"samples/contrib/*"
 )
 
 function testNotebooks() {
