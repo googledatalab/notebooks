@@ -50,9 +50,11 @@ EXCLUDE_NOTEBOOKS=(
 
 # samples/ML Toolbox/Classification/* is tested.
 # Image Classification notebooks take too long to execute.
+# contrib is experimental
 EXCLUDE_FOLDERS=(
 "samples/ML Toolbox/Regression/*"
 "samples/ML Toolbox/Image Classification/*"
+"samples/contrib"
 )
 
 function testNotebooks() {
