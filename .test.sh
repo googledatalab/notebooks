@@ -48,6 +48,7 @@ EXCLUDE_NOTEBOOKS=(
 "LSTM Punctuation Model With TensorFlow.ipynb"  # This notebook takes 60 minutes to execute.
 "Image-to-Captions Model with TensorFlow.ipynb" # This notebook takes 120 minutes to execute.
 "Basic RNN TensorFlow Model Trained on Simulated Data.ipynb" # This notebook takes 10 minutes to execute.
+"Text Classification with TensorFlow.ipynb" # This notebook takes 10 minutes to execute.
 )
 
 # samples/ML Toolbox/Classification/* is tested.
