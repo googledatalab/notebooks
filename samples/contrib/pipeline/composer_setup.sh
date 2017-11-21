@@ -5,9 +5,9 @@ sudo apt-get -y remove google-cloud-sdk
 # If an installation still exists after executing apt-get remove, try the following:
 # gcloud info --format="value(installation.sdk_root)"
 # that'll give you the installation directory of whichever installation gets executed
-# you can remove that entire directory
-# restart shell, rinse and repeat until gcloud is no longer on your path
-# you might have to clean up your PATH in .bashrc and nuke the .config/gcloud directory
+# you can remove that entire directory. Restart shell, rinse and repeat until gcloud is 
+# no longer on your path you might have to clean up your PATH in .bashrc and nuke the 
+# .config/gcloud directory
 
 # Hopefully by now the machine is clean, so install gcloud
 curl https://sdk.cloud.google.com | CLOUDSDK_CORE_DISABLE_PROMPTS=1 bash
@@ -17,18 +17,15 @@ exec -l $SHELL
 
 # These have to be set here and not on the top of the script because we recycle the shell somewhere
 # between the start of this script and here.
+ZONE=${1:-us-central1}
 EMAIL=${2:-rajivpb@google.com}
+PROJECT=$(gcloud info --format='get(config.project)')
+ENVIRONMENT=datalab-composer
 
 gcloud config set project $PROJECT
 gcloud config set account $EMAIL
 gcloud auth login $EMAIL
 
-# If executing from a Datalab notebook, only the commands below are required
-PROJECT=${1:-cloud-ml-dev}
-ZONE=${3:-us-central1}
-ENVIRONMENT=${4:-datalab-testing-1}
-
-datalab project set -p $PROJECT
 gcloud components repositories add https://storage.googleapis.com/composer-trusted-tester/components-2.json
 gcloud components update -q
 gcloud components install -q alpha kubectl
