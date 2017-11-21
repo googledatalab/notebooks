@@ -17,10 +17,10 @@ exec -l $SHELL
 
 # These have to be set here and not on the top of the script because we recycle the shell somewhere
 # between the start of this script and here.
-ZONE=${1:-us-central1}
-EMAIL=${2:-rajivpb@google.com}
-PROJECT=$(gcloud info --format='get(config.project)')
-ENVIRONMENT=datalab-composer
+PROJECT=${1:-$(gcloud info --format='get(config.project)')}
+ZONE=${2:-us-central1}
+EMAIL=$3
+ENVIRONMENT=${4:-datalab-composer}
 
 gcloud config set project $PROJECT
 gcloud config set account $EMAIL
@@ -32,7 +32,7 @@ gcloud components install -q alpha kubectl
 
 gcloud config set composer/location $ZONE
 gcloud alpha composer environments create $ENVIRONMENT
-gcloud alpha composer environments describe $ENVIRONMENT
 echo "datalab" > requirements.txt
 gcloud alpha composer environments set-python-dependencies $ENVIRONMENT requirements.txt
 rm requirements.txt
+
