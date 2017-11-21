@@ -50,5 +50,3 @@ crontab $AIRFLOW_CRON
 rm $AIRFLOW_CRON
 EOF'
 
-# Meditate.
-sleep 120
