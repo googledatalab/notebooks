@@ -31,7 +31,7 @@ gsutil cp gs://datalab-pipelines/$DATALAB_TAR $DATALAB_TAR
 pip install $DATALAB_TAR
 rm $DATALAB_TAR
 
-# Airflow is installed by datalab. So any airflow commands should follow the datalab install.
+pip install apache-airflow==1.9.0
 export AIRFLOW_HOME=/airflow
 export AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
 export AIRFLOW__CORE__LOAD_EXAMPLES=False
