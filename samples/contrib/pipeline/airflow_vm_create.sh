@@ -23,7 +23,7 @@ gcloud beta compute --project $PROJECT_ID instances create $VM_NAME \
     --boot-disk-type "pd-standard" \
     --boot-disk-device-name $VM_NAME \
     --metadata startup-script='#!/bin/bash
-apt-get --assume-yes install python-pip
+apt-get --assume-yes --fix-missing install python-pip
 
 # TODO(rajivpb): Replace this with "pip install datalab"
 DATALAB_TAR=datalab-1.1.0.tar
@@ -53,5 +53,6 @@ rm $AIRFLOW_CRON
 EOF'
 
 # TODO(rajivpb): Just for debugging; don't ship with this!
-sleep 10s
+sleep 30s
+gcloud compute --project=$PROJECT_ID instances get-serial-port-output $VM_NAME --zone=$ZONE
 gcloud compute --project $PROJECT_ID ssh --zone $ZONE $VM_NAME
