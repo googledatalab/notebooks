@@ -53,5 +53,5 @@ rm $AIRFLOW_CRON
 EOF'
 
 # TODO(rajivpb): Just for debugging; don't ship with this!
-sleep 5s
+sleep 10s
 gcloud compute --project $PROJECT_ID ssh --zone $ZONE $VM_NAME
