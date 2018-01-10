@@ -22,7 +22,35 @@ gcloud beta compute --project $PROJECT_ID instances create $VM_NAME \
     --boot-disk-size "10" \
     --boot-disk-type "pd-standard" \
     --boot-disk-device-name $VM_NAME \
-    --metadata startup-script-url=gs://datalab-pipelines/airflow_vm_startup.sh
+    --metadata startup-script='#!/bin/bash
+apt-get --assume-yes install python-pip
+
+# TODO(rajivpb): Replace this with "pip install datalab"
+DATALAB_TAR=datalab-1.1.0.tar
+gsutil cp gs://datalab-pipelines/$DATALAB_TAR $DATALAB_TAR
+pip install $DATALAB_TAR
+rm $DATALAB_TAR
+
+pip install apache-airflow==1.9.0
+export AIRFLOW_HOME=/airflow
+export AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
+export AIRFLOW__CORE__LOAD_EXAMPLES=False
+airflow initdb
+airflow scheduler &
+
+pip install pandas-gbq==0.3.0
+
+# We append a gsutil rsync command to the cron file and have this run every minute to sync dags.
+PROJECT_ID=$(gcloud info --format="get(config.project)")
+GCS_DAG_BUCKET=$PROJECT_ID-datalab-airflow
+AIRFLOW_CRON=temp_crontab.txt
+crontab -l > $AIRFLOW_CRON
+DAG_FOLDER="dags"
+LOCAL_DAG_PATH=$AIRFLOW_HOME/$DAG_FOLDER
+echo "* * * * * gsutil rsync gs://$GCS_DAG_BUCKET/$DAG_FOLDER $LOCAL_DAG_PATH" >> $AIRFLOW_CRON
+crontab $AIRFLOW_CRON
+rm $AIRFLOW_CRON
+EOF'
 
 # TODO(rajivpb): Just for debugging; don't ship with this!
 sleep 5s
