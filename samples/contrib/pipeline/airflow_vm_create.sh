@@ -23,7 +23,8 @@ gcloud beta compute --project $PROJECT_ID instances create $VM_NAME \
     --boot-disk-type "pd-standard" \
     --boot-disk-device-name $VM_NAME \
     --metadata startup-script='#!/bin/bash
-apt-get --assume-yes --fix-missing install python-pip
+apt-get update
+apt-get --assume-yes install python-pip
 
 # TODO(rajivpb): Replace this with "pip install datalab"
 DATALAB_TAR=datalab-1.1.0.tar
