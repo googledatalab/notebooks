@@ -5,11 +5,11 @@ ZONE=${1:-us-central1-b}
 # script for the VM creation, so if this name is changed here, it needs to be changed there as well.
 # This will fail if the bucket already exists, and that's ok.
 PROJECT_ID=$(gcloud info --format='get(config.project)')
-GCS_DAG_BUCKET=$PROJECT_ID-datalab-airflow
+VM_NAME=datalab-airflow
+GCS_DAG_BUCKET=$PROJECT_ID-$VM_NAME
 gsutil mb gs://$GCS_DAG_BUCKET
 
 # Create the VM.
-VM_NAME=datalab-airflow
 gcloud beta compute --project $PROJECT_ID instances create $VM_NAME \
     --zone $ZONE \
     --machine-type "n1-standard-1" \
@@ -23,6 +23,7 @@ gcloud beta compute --project $PROJECT_ID instances create $VM_NAME \
     --boot-disk-type "pd-standard" \
     --boot-disk-device-name $VM_NAME \
     --metadata startup-script='#!/bin/bash
+apt-get update
 apt-get --assume-yes install python-pip
 
 # TODO(rajivpb): Replace this with "pip install datalab"
@@ -32,6 +33,8 @@ pip install $DATALAB_TAR
 rm $DATALAB_TAR
 
 pip install apache-airflow==1.9.0
+pip install pandas-gbq==0.3.0
+
 export AIRFLOW_HOME=/airflow
 export AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
 export AIRFLOW__CORE__LOAD_EXAMPLES=False
@@ -45,8 +48,8 @@ AIRFLOW_CRON=temp_crontab.txt
 crontab -l > $AIRFLOW_CRON
 DAG_FOLDER="dags"
 LOCAL_DAG_PATH=$AIRFLOW_HOME/$DAG_FOLDER
+mkdir $LOCAL_DAG_PATH
 echo "* * * * * gsutil rsync gs://$GCS_DAG_BUCKET/$DAG_FOLDER $LOCAL_DAG_PATH" >> $AIRFLOW_CRON
 crontab $AIRFLOW_CRON
 rm $AIRFLOW_CRON
 EOF'
-
