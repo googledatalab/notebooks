@@ -48,12 +48,8 @@ AIRFLOW_CRON=temp_crontab.txt
 crontab -l > $AIRFLOW_CRON
 DAG_FOLDER="dags"
 LOCAL_DAG_PATH=$AIRFLOW_HOME/$DAG_FOLDER
+mkdir $LOCAL_DAG_PATH
 echo "* * * * * gsutil rsync gs://$GCS_DAG_BUCKET/$DAG_FOLDER $LOCAL_DAG_PATH" >> $AIRFLOW_CRON
 crontab $AIRFLOW_CRON
 rm $AIRFLOW_CRON
 EOF'
-
-# TODO(rajivpb): Just for debugging; don't ship with this!
-sleep 30s
-gcloud compute --project=$PROJECT_ID instances get-serial-port-output $VM_NAME --zone=$ZONE
-gcloud compute --project $PROJECT_ID ssh --zone $ZONE $VM_NAME
