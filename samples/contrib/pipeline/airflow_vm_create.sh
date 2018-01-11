@@ -33,13 +33,13 @@ pip install $DATALAB_TAR
 rm $DATALAB_TAR
 
 pip install apache-airflow==1.9.0
+pip install pandas-gbq==0.3.0
+
 export AIRFLOW_HOME=/airflow
 export AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
 export AIRFLOW__CORE__LOAD_EXAMPLES=False
 airflow initdb
 airflow scheduler &
-
-pip install pandas-gbq==0.3.0
 
 # We append a gsutil rsync command to the cron file and have this run every minute to sync dags.
 PROJECT_ID=$(gcloud info --format="get(config.project)")
