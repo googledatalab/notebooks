@@ -105,4 +105,8 @@ if [ -z "${active_account}" ]; then
     gcloud config set account "${first_account}"
 fi
 
+
+# Ensure we're in the correct Conda environment.
+source activate py3env
 testNotebooks ${DIR}
+source deactivate
