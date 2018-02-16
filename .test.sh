@@ -105,4 +105,12 @@ if [ -z "${active_account}" ]; then
     gcloud config set account "${first_account}"
 fi
 
-testNotebooks ${DIR}
+
+# Check if this container has Conda, if so ensure we're in the correct Conda environment.
+if [ -x "$(command -v activate)" ]; then
+  source activate "py3env"
+  testNotebooks ${DIR}
+  source deactivate
+else
+  testNotebooks ${DIR}
+fi
