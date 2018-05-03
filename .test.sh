@@ -107,7 +107,7 @@ fi
 
 
 # Check if this container has Conda, if so ensure we're in the correct Conda environment.
-if [ -x "$(command -v activate)" ]; then
+if [ -r "$(command -v activate)" ]; then
   source activate "py3env"
   testNotebooks ${DIR}
   source deactivate
