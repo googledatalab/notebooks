@@ -1,2 +1,3 @@
-# notebooks
-Google Cloud Datalab samples and documentation
+# Google Cloud DataLab
+
+Datalab is deprecated. [Vertex AI Workbench](https://cloud.google.com/vertex-ai/docs/workbench) provides a notebook-based environment that offers capabilities beyond Datalab. We recommend that you use Vertex AI Workbench for new projects and [migrate your Datalab notebooks to Vertex AI Workbench](https://cloud.google.com/datalab/docs/resources/troubleshooting#migrate). For more information, see [Deprecation information](https://cloud.google.com/datalab/docs/resources/deprecation). To get help migrating Datalab projects to Vertex AI Workbench see [Get help](https://cloud.google.com/datalab/docs/resources/support#get-help).
